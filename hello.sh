@@ -80,6 +80,49 @@ case $1 in
 
                 fi
                 ;;
+        build/*)
+                # since the user can input either the absolute path or relative path from working directory
+                # i will generate a firstpath which corresponds to the absolute path and second path wich
+                # corresponds to the path relative to working directory when bash script is located
+                echo $1 > file1.txt
+                sed -i 's.build..' file1.txt 
+                myFirstPath=$( cat file1.txt )
+                # get the pwd in a second file and concatenate with first file
+                pwd > file2.txt
+                currentDir=$(while IFS= read -r line; 
+                do
+                        printf '%s\n' "$line"
+                done < file2.txt)
+                concatResult=$( cat file2.txt file1.txt )
+                # get rid of space in the concatResult
+                echo $concatResult > file3.txt 
+                sed -i 's/ //' file3.txt
+                # read from file3.txt and pass that to a variable which holds the secondpath
+                mySecondPath=$(
+                        while IFS= read -r line
+                        do 
+                                printf '%s\n' "$line"
+                        done < file3.txt 
+                )
+                rm file1.txt file2.txt file3.txt 
+                # verify if directories exist 
+                if [ -d $myFirstPath ]
+                then
+                        # build project in target directory 
+                        cp -r $currentDir/* $myFirstPath
+                        echo "$myFirstPath exists"
+                        cd $myFirstPath
+                        sh ./myscript.sh 
+                elif [ -d $mySecondPath ]
+                then 
+                        cp -r $currentDir/* $mySecondPath
+                        echo " $mySeondPath existing "
+                        cd $mysecondPath
+                        sh ./myscript.sh 
+                else 
+                        echo "not such directory found !"
+                fi
+                ;;
         *)
                 echo "unkown option, type --help to check all possible commands"
 esac

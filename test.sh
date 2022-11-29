@@ -50,8 +50,7 @@ then
         echo "le dossier images existe mais il est vide, pas d'images à afficher "
     fi 
 else 
-    echo "le repertoire images n'est pas trouvé dans la racine de votre projet 
-    donc vous n'aurez pas d'images dans la section images de votre page"
+    mkdir images 
 fi 
 
 
