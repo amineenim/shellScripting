@@ -10,7 +10,7 @@ case $1 in
         --help) 
         echo   
                 "add_image : allows you to add an image either by directly defining the imageName and exstension or defining an absolute path to your image"
-                'build/path/to/dir : allows you to build your project in a specific firectory either by defining an absolute path or relative path to working directory'
+                'build/path/to/dir : allows you to build your project in a specific directory either by defining an absolute path or relative path to working directory'
                 '--auth : allows you to either authenticate to the app or register '
                 '--help : displays a listing of all available options for the script and their structres'
                 
