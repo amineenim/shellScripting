@@ -4,15 +4,18 @@
 
 if [[ $1 == "" ]] || [[ $1 == " " ]]
 then 
-        echo "please authenticate first before going to home page, check the --auth or the --help to get help !"
+        ./myscript.sh 
 else
 case $1 in
         --help) 
         echo   
-                "add_image : allows you to add an image either by directly defining the imageName and exstension or defining an absolute path to your image"
+                'add_image : allows you to add an image either by directly defining the imageName and exstension or defining an absolute path to your image'
                 'build/path/to/dir : allows you to build your project in a specific firectory either by defining an absolute path or relative path to working directory'
                 '--auth : allows you to either authenticate to the app or register '
                 '--help : displays a listing of all available options for the script and their structres'
+                '--stats : displays statistics for visiters of the blog '
+                '--debug : returns the execution details for the script '
+
                 
                 
                 
@@ -37,7 +40,7 @@ case $1 in
                                         # now that we have the last part of path, we verify the file extension
                                         image_name=${lastPartOfPath%%.*} 
                                         image_extension=${lastPartOfPath#*.}
-                                        . ./test.sh 
+                                        . ./Image_Handler.sh 
                                         in_array $image_extension
                                         if [[ $? -eq 1 ]]
                                         then 
@@ -51,7 +54,7 @@ case $1 in
                                                         cd ..
                                                         cp $pathToImage ./images 
                                                         echo "image added successefully"
-                                                        sh ./hello.sh 
+                                                        sh ./myscript.sh 
                                                 else 
                                                         echo "the given image $filename doesn't exist in your $dir, check the extension !"
                                                 fi 
@@ -69,7 +72,7 @@ case $1 in
                                 image_name=${imageFromUser%%.*} 
                                 image_extension=${imageFromUser#*.}
                                 # check if the image has the required extension
-                                . ./test.sh 
+                                . ./Image_Handler.sh 
                                 in_array $image_extension
                                 if [[ $? -eq 1 ]] 
                                 then 
@@ -80,7 +83,7 @@ case $1 in
                                                 fileName=$image_name.$image_extension
                                                 echo $fileName
                                                 cp $fileName ./images
-                                                sh ./hello.sh
+                                                sh ./myscript.sh
                                         else 
                                                 echo "image not found !"
                                                 echo $imageFromUser
@@ -185,6 +188,7 @@ case $1 in
                         # add data to file.csv
                         echo $username,$password >> myBase.csv
                         echo "registration done successefully, now u can authenticate !"
+                        ./myscript.sh 
 
                 elif [[  $response == "n" ]]
                 then
@@ -209,12 +213,14 @@ case $1 in
                         do 
                                 if [[ $line == $password ]]
                                 then 
-                                echo " Nice to see you again Mr. $username "
-                                 else 
-                                echo " password not matching "
-                                 fi
+                                        echo " Nice to see you again Mr. $username "
+                                        ./myscript.sh 
+                                else 
+                                        echo " password not matching, please retry again and verify your credentials !"
+                                fi
                                 done < file.txt 
                                 rm file.txt 
+                                
                         else 
                                 echo "no corresponding username found !"
                         fi 
@@ -224,6 +230,7 @@ case $1 in
         ;;
         *)
                 echo "unkown option, type --help to check all possible commands"
+        ;;
 esac
 fi 
 

@@ -91,7 +91,7 @@ echo $articleOpeningTag >> index.html
 
 
 # call the other script which handles interacting with images folder
-sh ./test.sh 
+sh ./Image_Handler.sh 
 
 articleStyle='
 article {
