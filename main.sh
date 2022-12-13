@@ -8,6 +8,7 @@ then
 else
 case $1 in
         --help) 
+<<<<<<< HEAD
         echo   
                 'add_image : allows you to add an image either by directly defining the imageName and exstension or defining an absolute path to your image'
                 'build/path/to/dir : allows you to build your project in a specific firectory either by defining an absolute path or relative path to working directory'
@@ -16,6 +17,13 @@ case $1 in
                 '--stats : displays statistics for visiters of the blog '
                 '--debug : returns the execution details for the script '
 
+=======
+        echo -e  "
+                add_image : allows you to add an image either by directly defining the imageName and exstension \n\t\t\t or defining an absolute path to your image\n
+                build/(path/to/dir) : allows you to build your project in a specific firectory either by defining \n\t\t\t an absolute path or relative path to working directory\n
+                --auth : allows you to either authenticate to the app or register\n
+                --help : displays a listing of all available options for the script and their structres\n"
+>>>>>>> 72e7f7f01ef78609858dd312d27d467b455ff37b
                 
                 
                 
