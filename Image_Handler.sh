@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /bin/bash
 # open the file and display it's content
 
 
@@ -21,10 +21,12 @@ function in_array ()
 
 
 
-
+echo "----Image_Handler.sh : start!" >> executionHistory.txt
 if [ -d images ]
 then 
+    chmod u+wrx images
     if [ "( ls -A images )" ]
+    echo "----Image_Handler.sh : images exist!" >> executionHistory.txt
     then
         cd images/
         for file in `ls . `
@@ -41,18 +43,24 @@ then
                cd ..
                echo $uniqueImage >> index.html
                cd images/
-            else 
+               echo "----Image_Handler.sh : added ${file%%.*} to index.html!" >> ../executionHistory.txt
+            else
+               echo "----Image_Handler.sh : ${file%%.*} could not be added to index.html!" >> ../executionHistory.txt
                echo "le fichier ${file%%.*} n'a pas un extension permise, il ne peut pas etre affiché"
             fi
         done
+        
 
-    else 
+    else
+        echo "----Image_Handler.sh : images is empty!" >> ../executionHistory.txt
         echo "le dossier images existe mais il est vide, pas d'images à afficher "
     fi 
 else 
+    echo "----Image_Handler.sh : images does not exist!" >> ../executionHistory.txt
     mkdir images 
+    echo "----Image_Handler.sh : images directory created!" >> ../executionHistory.txt
 fi 
-
+echo "----Image_Handler.sh : end!" >> ../executionHistory.txt
 
 
 

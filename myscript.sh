@@ -1,11 +1,17 @@
-#! /usr/bin/bash 
+#! /bin/bash
 
 
 # on commence par générer un fichier index.html vide pour le peupler de balises
 # et un autre style.css qui contiendra les styles des différents eléments
+echo "----myscript.sh : start!" >> executionHistory.txt
+
 touch index.html
 touch style.css 
+chmod u+wrx index.html
+chmod u+wrx style.css 
 
+echo "----myscript.sh : index.html created " >> executionHistory.txt
+echo "----myscript.sh : style.css  created " >> executionHistory.txt
 
 startEntete="
 <!DOCTYPE html>
@@ -91,7 +97,10 @@ echo $articleOpeningTag >> index.html
 
 
 # call the other script which handles interacting with images folder
-sh ./Image_Handler.sh 
+
+echo "----myscript.sh : running Image_Handler.sh" >> executionHistory.txt
+chmod u+x Image_Handler.sh 
+./Image_Handler.sh 
 
 articleStyle='
 article {
@@ -125,5 +134,6 @@ img {
 articleClosingTag='</article>'
 echo $articleStyle $articleParagraphStyle $imageStyle >> style.css 
 echo $articleClosingTag >> index.html 
-
-start ./index.html 
+echo "----myscript.sh : run index.html on google chrome !" >> executionHistory.txt
+google-chrome index.html
+echo "----myscript.sh : end !" >> executionHistory.txt
