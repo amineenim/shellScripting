@@ -42,6 +42,13 @@ case $1 in
                 . ./main.sh $@
                 cat executionHistory.txt
         ;;
+        --states)
+                echo "--main script is running with states parameter" >> executionHistory.txt
+                chmod u+x build.sh
+                echo "--main: running build.sh" >> executionHistory.txt
+                ./states.sh $@
+
+        ;;
         *)
                 echo "unkown option, type --help to check all possible commands"
         ;;

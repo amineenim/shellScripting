@@ -47,10 +47,19 @@ then
                 done 
         fi 
         # add data to file.csv
+        #nbrVisite = 1
         echo $username,$password >> myBase.csv
         echo "registration done successefully, now u can authenticate !"
         echo "----auth.sh: sign up done successefully" >> executionHistory.txt
         echo "----auth.sh: running myscript.sh" >> executionHistory.txt
+        if [ -f state.txt ]
+        then 
+                echo "$username sign up successefully">> state.txt;
+        else 
+                touch state.txt
+                chmod u+xwr state.txt
+                echo "$username sign up successefully"> state.txt;
+        fi
         ./myscript.sh 
 
 elif [[  $response == "n" ]]
@@ -76,11 +85,20 @@ then
         while read line ;
         do 
                 if [[ $line == $password ]]
-                then 
+                then    
                         echo " Nice to see you again Mr. $username "
+                        if [ -f state.txt ]
+                        then 
+                                echo "$username log in successefully">> state.txt
+                        else 
+                                touch state.txt
+                                chmod u+xwr state.txt
+                                echo "$username log in successefully"> state.txt;
+                        fi
                         echo "----auth.sh: log in done successefully" >> executionHistory.txt
                         chmod u+x myscript.sh
                         echo "----auth.sh: running myscript.sh" >> executionHistory.txt
+
                         ./myscript.sh 
                 else 
                         echo "----auth.sh: password not matching, can't log in " >> executionHistory.txt
